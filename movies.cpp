@@ -69,6 +69,7 @@ int main() {
 }
 
 //------------------------------------------------------------------------------
+// updates final rating
 // returns true for valid integer input, false otherwise
 //------------------------------------------------------------------------------
 bool getIntRating() {
@@ -85,7 +86,8 @@ bool getIntRating() {
 }
 
 //------------------------------------------------------------------------------
-// returns true for valid string input (yes/no), false otherwise
+// updates final rating
+// returns true for valid string input (Yes/No), false otherwise
 //------------------------------------------------------------------------------
 bool getStrRating() {
 	string s;
