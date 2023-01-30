@@ -10,15 +10,14 @@ using namespace std;
 //------------------------------------------------------------------------------
 // globals
 //------------------------------------------------------------------------------
-// accumulate final rating
-double g_final_rating = 0;
-bool g_any_error = false;
+double g_final_rating = 0;		// accumulates final rating value (1-10)
+bool g_any_error = false;		// set true on any error
 
 //------------------------------------------------------------------------------
 // local function prototypes
 //------------------------------------------------------------------------------
-bool accIntRating(double multiplier);
-bool accStrRating(int points);
+bool addIntRating(double multiplier);
+bool addStrRating(int points);
 
 //------------------------------------------------------------------------------
 // entry point
@@ -29,26 +28,26 @@ int main() {
 	int i;
 	string s;
 
-	cout << "It's movie rating time!\n\n";
+	cout << "\nIt's movie rating time!\n\n";
 
 	cout << "Movie title? ";
 	string title;
 	cin >> title;
 
-	cout << "1) How do you rate this movie? (1-10) ";
-	bool bad_rating = accIntRating(0.3);
+	cout << "1) How do you rate this movie (1-10)? ";
+	bool bad_rating = addIntRating(0.3);
 
-	cout << "2) Do you like movies with this person? ";
-	bool bad_actor_rating = accStrRating(2);
+	cout << "2) Do you like other movies with the same actors (y/n)? ";
+	bool bad_actor_rating = addStrRating(2);
 
-	cout << "3) How would others rate this movie? (1-10) ";
-	bool bad_others_rating = accIntRating(0.3);
+	cout << "3) How would others rate this movie (1-10)? ";
+	bool bad_others_rating = addIntRating(0.3);
 
-	cout << "4) Have you thumbed up this movie already? ";
-	bool bad_thumbed_up = accStrRating(2);
+	cout << "4) Have you thumbed up this movie already (y/n)? ";
+	bool bad_thumbed_up = addStrRating(2);
 
-	cout << "5) Have you thumbed down this movie already? ";
-	bool bad_thumbed_down = accStrRating(-2);
+	cout << "5) Have you thumbed down this movie already (y/n)? ";
+	bool bad_thumbed_down = addStrRating(-2);
 
 	if (!g_any_error) {
 		cout << "\nFinal rating: " << g_final_rating << '\n';
@@ -72,7 +71,7 @@ int main() {
 // updates final rating using passed value
 // returns false (no error) for valid integer input, true otherwise
 //------------------------------------------------------------------------------
-bool accIntRating(double multiplier) {
+bool addIntRating(double multiplier) {
 	int i;
 	cin >> i;
 
@@ -86,19 +85,23 @@ bool accIntRating(double multiplier) {
 }
 
 //------------------------------------------------------------------------------
-// updates final rating using passed value
-// returns false (no error) for valid string input (Yes/No), true otherwise
+// adds passed value to final rating when user inputs a form of yes
+// returns false (no error) for valid yes/no input (Yes/No), true otherwise
 //------------------------------------------------------------------------------
-bool accStrRating(int points) {
+bool addStrRating(int points) {
 	string s;
 	cin >> s;
 
-	if (!s.compare("Yes")) {
+	// accept these forms of yes
+	if (!s.compare("y") || !s.compare("Y") ||
+		!s.compare("yes") || !s.compare("Yes")) {
 		g_final_rating += points;
 		return false;
 	}
 
-	if (s.compare("No")) {
+	// if user didn't type any form of no, it's an error
+	if (!(!s.compare("n") || !s.compare("N") ||
+		!s.compare("no") || !s.compare("No"))) {
 		g_any_error = true;
 		return true;
 	}
