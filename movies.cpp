@@ -5,7 +5,9 @@
 #include <iostream>
 #include < string>
 
-using namespace std;
+using std::cin;
+using std::cout;
+using std::string;
 
 //------------------------------------------------------------------------------
 // globals
@@ -64,6 +66,8 @@ int main() {
 			cout << "Invalid thumbed up rating\n";
 		if (bad_thumbed_down)
 			cout << "Invalid thumbed down rating\n";
+
+		cout << "Can't calculate movie rating due to invalid input\n";
 	}
 }
 
