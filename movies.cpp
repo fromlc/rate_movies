@@ -10,94 +10,76 @@ using namespace std;
 //------------------------------------------------------------------------------
 // entry point
 //------------------------------------------------------------------------------
-int main()
-{
+int main() {
+
+	// accumulate final rating
 	double final_rating = 0;
+
+	// input
+	int i;
+	string s;
 
 	// track bad input
 	bool bad_rating = false;
-	bool bad_person_input = false;
+	bool bad_actor_input = false;
 	bool bad_others_rating = false;
 	bool bad_thumbed_up = false;
+	bool bad_thumbed_down = false;
 
 	cout << "Movie title? ";
 	string title;
 	cin >> title;
 
-	cout << "#1 How would you rate this movie? (1-10) ";
-	int rating;
-	cin >> rating;
+	cout << "#1 How do you rate this movie? (1-10) ";
+	cin >> i;
 
-	if (rating >= 1 && rating <= 10)
-	{
-		final_rating = final_rating + rating * 0.3;
+	if (i >= 1 && i <= 10) {
+		final_rating += i * 0.3;
 	}
-	else
-	{
+	else {
 		// bad rating
 		bad_rating = true;
 	}
 
 	cout << "#2 Do you like movies with this person? ";
-	string like_person;
-	cin >> like_person;
+	cin >> s;
 
-	if (like_person == "Yes" || like_person == "No")
-	{
-		if (like_person == "Yes")
-		{
-			final_rating = final_rating + 2;
-		}
+	if (!s.compare("Yes")) {
+		final_rating += 2;
 	}
-	else
-	{
-		// track bad person input
-		bad_person_input = true;
+	else if (s.compare("No")) {
+		bad_actor_input = true;
 	}
 
 	cout << "#3 How would others rate this movie? (1-10) ";
-	int others_rating;
-	cin >> others_rating;
+	cin >> i;
 
-	if (others_rating >= 1 && others_rating <= 10)
-	{
-		final_rating = final_rating + (others_rating * 0.3);
+	if (i >= 1 && i <= 10) {
+		final_rating += i * 0.3;
 	}
-	else
-	{
-		// bad rating by other people
+	else {
 		bad_others_rating = true;
 	}
 
 	cout << "#4 Have you thumbed up this movie already? ";
-	string already_thumbed_up;
-	cin >> already_thumbed_up;
+	cin >> s;
 
-	if (already_thumbed_up == "Yes" || already_thumbed_up == "No")
-	{
-		if (already_thumbed_up == "Yes")
-		{
-			final_rating = final_rating + 2;
-		}
+	if (!s.compare("Yes")) {
+		final_rating += 2;
 	}
-	else
-	{
-		// track bad person input
+	else if (s.compare("No"))	{
 		bad_thumbed_up = true;
 	}
 
-	// more efficient if statement
-	//if (already_thumbed_up == "Yes")
-	//{
-	//	final_rating = final_rating + 2;
-	//}
-	//else if (already_thumbed_up != "No")
-	//{
-	//	// track bad person input
-	//	bad_thumbed_up = true;
-	//}
+	cout << "#5 Have you thumbed down this movie already? ";
+	cin >> s;
 
-	// #TODO we still need to check for already thumbed down
+	if (!s.compare("Yes")) {
+		final_rating -= 2;
+	}
+	else if (s.compare("No")) {
+		bad_thumbed_down = true;
+	}
 
 
 	// display the final rating
@@ -113,8 +95,14 @@ int main()
 
 	if (bad_rating)
 		cout << "Bad rating\n";
-	if (bad_person_input)
+	if (bad_actor_input)
 		cout << "Bad other people's rating\n";
+	if (bad_others_rating)
+		cout << "Bad other people's rating\n";
+	if (bad_thumbed_up)
+		cout << "Bad thumbed up rating\n";
+	if (bad_thumbed_down)
+		cout << "Bad thumbed down rating\n";
 
 	// #TODO check for the other two errors
 
