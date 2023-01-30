@@ -11,14 +11,14 @@ using namespace std;
 // globals
 //------------------------------------------------------------------------------
 // accumulate final rating
-double final_rating = 0;
-bool any_error = false;
+double g_final_rating = 0;
+bool g_any_error = false;
 
 //------------------------------------------------------------------------------
 // local function prototypes
 //------------------------------------------------------------------------------
-bool getIntRating();
-bool getStrRating();
+bool accIntRating(double multiplier);
+bool accStrRating(int points);
 
 //------------------------------------------------------------------------------
 // entry point
@@ -36,22 +36,22 @@ int main() {
 	cin >> title;
 
 	cout << "1) How do you rate this movie? (1-10) ";
-	bool bad_rating = getIntRating();
+	bool bad_rating = accIntRating(0.3);
 
 	cout << "2) Do you like movies with this person? ";
-	bool bad_actor_rating = getStrRating();
+	bool bad_actor_rating = accStrRating(2);
 
 	cout << "3) How would others rate this movie? (1-10) ";
-	bool bad_others_rating = getIntRating();
+	bool bad_others_rating = accIntRating(0.3);
 
 	cout << "4) Have you thumbed up this movie already? ";
-	bool bad_thumbed_up = getStrRating();
+	bool bad_thumbed_up = accStrRating(2);
 
 	cout << "5) Have you thumbed down this movie already? ";
-	bool bad_thumbed_down = getStrRating();
+	bool bad_thumbed_down = accStrRating(-2);
 
-	if (!any_error) {
-		cout << "Final rating: " << final_rating << '\n';
+	if (!g_any_error) {
+		cout << "\nFinal rating: " << g_final_rating << '\n';
 	}
 	else {
 		// report bad input
@@ -69,37 +69,37 @@ int main() {
 }
 
 //------------------------------------------------------------------------------
-// updates final rating
-// returns true for valid integer input, false otherwise
+// updates final rating using passed value
+// returns false (no error) for valid integer input, true otherwise
 //------------------------------------------------------------------------------
-bool getIntRating() {
+bool accIntRating(double multiplier) {
 	int i;
 	cin >> i;
 
 	if (i >= 1 && i <= 10) {
-		final_rating += i * 0.3;
+		g_final_rating += i * multiplier;
 		return false;
 	}
 
-	any_error = true;
+	g_any_error = true;
 	return true;
 }
 
 //------------------------------------------------------------------------------
-// updates final rating
-// returns true for valid string input (Yes/No), false otherwise
+// updates final rating using passed value
+// returns false (no error) for valid string input (Yes/No), true otherwise
 //------------------------------------------------------------------------------
-bool getStrRating() {
+bool accStrRating(int points) {
 	string s;
 	cin >> s;
 
 	if (!s.compare("Yes")) {
-		final_rating += 2;
+		g_final_rating += points;
 		return false;
 	}
 
 	if (s.compare("No")) {
-		any_error = true;
+		g_any_error = true;
 		return true;
 	}
 }
