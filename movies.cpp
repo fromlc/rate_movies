@@ -55,19 +55,20 @@ int main() {
 		cout << "\nFinal rating: " << g_final_rating << '\n';
 	}
 	else {
-		// report bad input
-		if (bad_rating)
-			cout << "Invalid rating\n";
-		if (bad_actor_rating)
-			cout << "Invalid actor rating\n";
-		if (bad_others_rating)
-			cout << "Invalid other people's rating\n";
-		if (bad_thumbed_up)
-			cout << "Invalid thumbed up rating\n";
-		if (bad_thumbed_down)
-			cout << "Invalid thumbed down rating\n";
+		cout << "\nCan't calculate movie rating due to invalid input:\n";
 
-		cout << "Can't calculate movie rating due to invalid input\n";
+		// report which input(s) was/were invalid
+		if (bad_rating)
+			cout << "\tInvalid rating\n";
+		if (bad_actor_rating)
+			cout << "\tInvalid actor rating\n";
+		if (bad_others_rating)
+			cout << "\tInvalid other people's rating\n";
+		if (bad_thumbed_up)
+			cout << "\tInvalid thumbed up rating\n";
+		if (bad_thumbed_down)
+			cout << "\tInvalid thumbed down rating\n";
+
 	}
 }
 
