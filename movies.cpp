@@ -1,7 +1,6 @@
 //------------------------------------------------------------------------------
 // movies.cpp
 //------------------------------------------------------------------------------
-
 #include <iostream>
 #include < string>
 
@@ -68,7 +67,6 @@ int main() {
 			cout << "\tInvalid thumbed up rating\n";
 		if (bad_thumbed_down)
 			cout << "\tInvalid thumbed down rating\n";
-
 	}
 }
 
